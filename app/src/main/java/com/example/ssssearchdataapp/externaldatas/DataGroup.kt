@@ -1,5 +1,6 @@
 package com.example.ssssearchdataapp.externaldatas
 
+
 data class DataGroup(
     // List -> MutableList
     val documents: MutableList<Document>,
