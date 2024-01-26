@@ -5,7 +5,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.net.NetworkInterface
 import java.util.concurrent.TimeUnit
 
 object DataRequestURLs {
@@ -20,7 +19,9 @@ object DataRequestURLs {
             ).build()
     }
 
-    val kakaoNetwork: KakaoNetwork by lazy { kakaoRetrofit.create(KakaoNetwork::class.java) }
+    val kakaoNetwork: KakaoNetwork by lazy {
+        kakaoRetrofit.create(KakaoNetwork::class.java)
+    }
 
     private fun createOkHttpClient(): OkHttpClient {
         val interceptor = HttpLoggingInterceptor()

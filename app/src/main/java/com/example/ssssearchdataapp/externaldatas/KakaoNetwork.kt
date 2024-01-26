@@ -8,10 +8,8 @@ import retrofit2.http.Query
 interface KakaoNetwork {
     @GET("v2/search/image")
     suspend fun getItem(
-        @Header("Authorization") apiKey:String = "KakaoAK $REST_API_KEY",
+        @Header("Authorization") apiKey:String = REST_API_KEY,
         @Query("query") query : String,
-        @Query("Sort") sort : String,
-        @Query("page") page : Int,
         @Query("size") size : Int
-        ): Datas
+        ): DataGroup
 }

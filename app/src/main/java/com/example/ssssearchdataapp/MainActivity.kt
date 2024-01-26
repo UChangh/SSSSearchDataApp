@@ -1,6 +1,7 @@
 package com.example.ssssearchdataapp
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -12,6 +13,7 @@ import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
 import com.example.ssssearchdataapp.databinding.ActivityMainBinding
 import com.example.ssssearchdataapp.externaldatas.DataRequestURLs
+import com.example.ssssearchdataapp.externaldatas.Document
 import com.example.ssssearchdataapp.fragments.ImageSearch
 import kotlinx.coroutines.launch
 
@@ -19,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
     companion object {
-        var queryData = ""
+        var items = mutableListOf<Document>()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         setFragment(fragment)
 
         binding.btnSearch.setOnClickListener {
-            queryData = binding.etSearchBar.text.toString()
+            getData(binding.etSearchBar.text.toString(), 10)
         }
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
@@ -74,5 +76,11 @@ class MainActivity : AppCompatActivity() {
             }
             dialog.show()
         }
+    }
+
+    fun getData(query: String, size: Int) = lifecycleScope.launch {
+        val response = DataRequestURLs.kakaoNetwork.getItem(KakaoAPIKey.REST_API_KEY, query, size)
+        Log.d("Parsing Sex ::", response.toString())
+        items = response.documents
     }
 }

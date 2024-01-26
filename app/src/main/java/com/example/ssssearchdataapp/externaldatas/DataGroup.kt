@@ -1,25 +1,24 @@
 package com.example.ssssearchdataapp.externaldatas
 
-import com.google.gson.annotations.SerializedName
-
 data class DataGroup(
-    val documents: List<Document>,
+    // List -> MutableList
+    val documents: MutableList<Document>,
     val meta: Meta
 )
 
 data class Document(
+    val collection: String,
     val datetime: String,
-    @SerializedName("display_sitename")
-    val siteName: String,
-    @SerializedName("thumbnail_url")
-    val thumbnail: String,
+    val display_sitename: String,
+    val doc_url: String,
+    val height: Int,
+    val image_url: String,
+    val thumbnail_url: String,
+    val width: Int
 )
 
 data class Meta(
-    @SerializedName("is_end")
-    val end: Boolean,
-    @SerializedName("pageable_count")
-    val page: Int,
-    @SerializedName("total_count")
-    val total: Int
+    val is_end: Boolean,
+    val pageable_count: Int,
+    val total_count: Int
 )
