@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
 
     fun getData(query: String, size: Int) = lifecycleScope.launch {
         val response = DataRequestURLs.kakaoNetwork.getItem(KakaoAPIKey.REST_API_KEY, query, size)
-        Log.d("Parsing Sex ::", response.toString())
+        Log.d("Parsing Test ::", response.toString())
         items = response.documents
     }
 }

@@ -47,6 +47,7 @@ class ImageSearch : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val adapter = ImageAdapter(items)
         binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = GridLayoutManager(mainActivity, 2, GridLayoutManager.VERTICAL, false)
     }
 
     companion object {
