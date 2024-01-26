@@ -9,23 +9,34 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import androidx.lifecycle.lifecycleScope
 import com.example.ssssearchdataapp.databinding.ActivityMainBinding
+import com.example.ssssearchdataapp.externaldatas.DataRequestURLs
+import com.example.ssssearchdataapp.fragments.ImageSearch
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+
+    companion object {
+        var queryData = ""
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val main = binding.root
         setContentView(main)
 
-        val fragment = ImageSearchFragment.newInstance("","")
+        val fragment = ImageSearch.newInstance("","")
         setFragment(fragment)
 
+        binding.btnSearch.setOnClickListener {
+            queryData = binding.etSearchBar.text.toString()
+        }
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
 
-    fun setFragment(f: Fragment) {
+    private fun setFragment(f: Fragment) {
         supportFragmentManager.commit {
             replace(R.id.frameLayout, f)
             setReorderingAllowed(true)
@@ -49,13 +60,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     // 뒤로가기 버튼 클릭 시 종료 다이얼로그 띄우기
-    val onBackPressedCallback = object : OnBackPressedCallback(true) {
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
             val dialog = AlertDialog.Builder(this@MainActivity)
                 .setTitle("종료")
                 .setMessage("종료하시겠습니까?")
 
-            dialog.setPositiveButton("확인") { dialog, _ ->
+            dialog.setPositiveButton("확인") { _, _ ->
                 if(!isFinishing) finish()
             }
             dialog.setNegativeButton("취소") { dialog, _ ->
