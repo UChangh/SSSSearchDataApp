@@ -5,8 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".ImageSearchFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:text="This is Fragment"
+        android:textSize="50sp"
+        android:textStyle="bold"/>
 </FrameLayout>
