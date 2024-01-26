@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">SSSSearchDataApp</string>
+    <string name="et_search_bar_hint">검색</string>
+    <string name="btn_search_page">이미지 검색</string>
+    <string name="btn_favorite_page">내 보관함</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

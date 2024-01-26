@@ -2,4 +2,41 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00FFFFFF</color>
+
+    <color name="color_1">#9DC8C8</color>
+    <color name="color_2">#58C9B9</color>
+    <color name="color_3">#519D9E</color>
+    <color name="color_4">#D1B6E1</color>
+
+    <color name="color_5">#D7FFF1</color>
+    <color name="color_6">#8CD790</color>
+    <color name="color_7">#77AF9C</color>
+    <color name="color_8">#285943</color>
+
+    <color name="color_9">#D499B9</color>
+    <color name="color_10">#9055A2</color>
+    <color name="color_11">#2E294E</color>
+    <color name="color_12">#011638</color>
+
+    <color name="color_13">#379392</color>
+    <color name="color_14">#4FB0C6</color>
+    <color name="color_15">#4F86C6</color>
+    <color name="color_16">#6C49B8</color>
+
+    <color name="color_17">#67D5B5</color>
+    <color name="color_18">#EE7785</color>
+    <color name="color_19">#C89EC4</color>
+    <color name="color_20">#84B1ED</color>
+
+    <!-- Use this color palette set! -->
+    <color name="color_21">#77AAAD</color>
+    <color name="color_22">#6E7783</color>
+    <color name="color_23">#D8E6E7</color>
+    <color name="color_24">#9DC3C1</color>
+
+    <color name="color_25">#D4DFE6</color>
+    <color name="color_26">#8EC0E4</color>
+    <color name="color_27">#CADBE9</color>
+    <color name="color_28">#6AAFE6</color>
 </resources>
