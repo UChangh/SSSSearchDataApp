@@ -13,23 +13,21 @@ import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
 import com.example.ssssearchdataapp.databinding.ActivityMainBinding
 import com.example.ssssearchdataapp.externaldatas.DataRequestURLs
-import com.example.ssssearchdataapp.externaldatas.Document
-import com.example.ssssearchdataapp.fragments.ImageSearch
+import com.example.ssssearchdataapp.fragments.ImageSearchFragment
+import com.example.ssssearchdataapp.fragments.ImageSearchFragment.Companion.items
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
-    companion object {
-        var items = mutableListOf<Document>()
-    }
+    lateinit var fragment:ImageSearchFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val main = binding.root
         setContentView(main)
 
-        val fragment = ImageSearch.newInstance("","")
+        fragment = ImageSearchFragment()
         setFragment(fragment)
 
         binding.btnSearch.setOnClickListener {
@@ -82,5 +80,7 @@ class MainActivity : AppCompatActivity() {
         val response = DataRequestURLs.kakaoNetwork.getItem(KakaoAPIKey.REST_API_KEY, query, size)
         Log.d("Parsing Test ::", response.toString())
         items = response.documents
+        fragment.adapter.getItems(items)
+        Log.i("Parsing Test ::", "size : ${items.size}")
     }
 }
