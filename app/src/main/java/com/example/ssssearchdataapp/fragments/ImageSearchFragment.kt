@@ -16,7 +16,6 @@ class ImageSearchFragment : Fragment() {
     private var _binding : FragmentImageSearchBinding? = null
     private val binding get() = _binding!!
 
-//    private lateinit var mainActivity:MainActivity
     lateinit var adapter:ImageAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {

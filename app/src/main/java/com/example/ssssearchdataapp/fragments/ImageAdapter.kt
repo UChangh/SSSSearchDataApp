@@ -1,6 +1,5 @@
 package com.example.ssssearchdataapp.fragments
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,12 +8,13 @@ import com.example.ssssearchdataapp.R
 import com.example.ssssearchdataapp.databinding.FragmentItemRecyclerBinding
 import com.example.ssssearchdataapp.externaldatas.Document
 import com.example.ssssearchdataapp.fragments.ImageSearchFragment.Companion.mainActivity
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 
 class ImageAdapter(private var dataset: List<Document>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     fun getItems(items : List<Document>){
         dataset = items
         notifyDataSetChanged()
-        Log.i("ImageAdapter","$items\n$dataset")
     }
 
     inner class Holder(binding: FragmentItemRecyclerBinding): RecyclerView.ViewHolder(binding.root) {
@@ -36,8 +36,9 @@ class ImageAdapter(private var dataset: List<Document>): RecyclerView.Adapter<Re
             .fitCenter()
             .into(holder.img)
         holder.blog.text = dataset[position].display_sitename
-        holder.time.text = dataset[position].datetime
+        holder.time.text = dtf.format(OffsetDateTime.parse(dataset[position].datetime))
     }
+    val dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 
     override fun getItemCount() = dataset.size
 }

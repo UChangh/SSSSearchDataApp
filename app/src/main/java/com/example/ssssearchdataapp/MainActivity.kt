@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
-    lateinit var fragment:ImageSearchFragment
+    private lateinit var fragment:ImageSearchFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,6 +81,5 @@ class MainActivity : AppCompatActivity() {
         Log.d("Parsing Test ::", response.toString())
         items = response.documents
         fragment.adapter.getItems(items)
-        Log.i("Parsing Test ::", "size : ${items.size}")
     }
 }
