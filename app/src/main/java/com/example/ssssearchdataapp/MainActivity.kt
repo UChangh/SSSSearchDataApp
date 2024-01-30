@@ -11,6 +11,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
+import com.example.ssssearchdataapp.SharedPreferenceKey.PREF_DEFAULT_VALUE
+import com.example.ssssearchdataapp.SharedPreferenceKey.PREF_KEY
+import com.example.ssssearchdataapp.SharedPreferenceKey.RECENT_KEY
 import com.example.ssssearchdataapp.databinding.ActivityMainBinding
 import com.example.ssssearchdataapp.externaldatas.DataRequestURLs
 import com.example.ssssearchdataapp.fragments.ImageSearchFragment
@@ -21,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
     private lateinit var fragment:ImageSearchFragment
+    private lateinit var search:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,8 +35,11 @@ class MainActivity : AppCompatActivity() {
         setFragment(fragment)
 
         binding.btnSearch.setOnClickListener {
-            getData(binding.etSearchBar.text.toString(), 10)
+            search = binding.etSearchBar.text.toString()
+            getData(search, 10)
+            saveHistory(search)
         }
+        loadHistory()
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
 
@@ -76,10 +83,23 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun getData(query: String, size: Int) = lifecycleScope.launch {
+    // 받아온 Data를 items라는 Document 타입 MutableList에 저장
+    private fun getData(query: String, size: Int) = lifecycleScope.launch {
         val response = DataRequestURLs.kakaoNetwork.getItem(KakaoAPIKey.REST_API_KEY, query, size)
         Log.d("Parsing Test ::", response.toString())
         items = response.documents
         fragment.adapter.getItems(items)
+    }
+
+    private fun saveHistory(s:String) {
+        getSharedPreferences(PREF_KEY, MODE_PRIVATE)
+            .edit()
+            .putString(RECENT_KEY,s)
+            .apply()
+    }
+
+    fun loadHistory() {
+        val getSharedPref = getSharedPreferences(PREF_KEY, MODE_PRIVATE)
+        binding.etSearchBar.setText(getSharedPref.getString(RECENT_KEY, PREF_DEFAULT_VALUE))
     }
 }
