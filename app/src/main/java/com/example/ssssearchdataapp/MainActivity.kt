@@ -11,19 +11,22 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
+import com.example.ssssearchdataapp.GlobalVars.items
 import com.example.ssssearchdataapp.SharedPreferenceKey.PREF_DEFAULT_VALUE
 import com.example.ssssearchdataapp.SharedPreferenceKey.PREF_KEY
 import com.example.ssssearchdataapp.SharedPreferenceKey.RECENT_KEY
 import com.example.ssssearchdataapp.databinding.ActivityMainBinding
 import com.example.ssssearchdataapp.externaldatas.DataRequestURLs
+import com.example.ssssearchdataapp.fragments.ImageLikeFragment
 import com.example.ssssearchdataapp.fragments.ImageSearchFragment
-import com.example.ssssearchdataapp.fragments.ImageSearchFragment.Companion.items
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
-    private lateinit var fragment:ImageSearchFragment
+    private lateinit var fragmentSearch:ImageSearchFragment
+    private lateinit var fragmentLike:ImageLikeFragment
+
     private lateinit var search:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,13 +34,39 @@ class MainActivity : AppCompatActivity() {
         val main = binding.root
         setContentView(main)
 
-        fragment = ImageSearchFragment()
-        setFragment(fragment)
+        fragmentSearch = ImageSearchFragment()
+        fragmentLike = ImageLikeFragment()
+        setFragment(fragmentSearch)
+        binding.btnSearchImage.isEnabled = false
 
-        binding.btnSearch.setOnClickListener {
-            search = binding.etSearchBar.text.toString()
-            getData(search, 10)
-            saveHistory(search)
+        binding.apply {
+            // 이미지 검색 버튼을 눌렀을 경우
+            btnSearchImage.setOnClickListener {
+                fragmentSearch = ImageSearchFragment()
+                setFragment(fragmentSearch)
+
+                btnSearchImage.isEnabled = false
+                btnFavorite.isEnabled = true
+                // 내 보관함에 있을 시 검색버튼 활성화
+                btnSearch.isEnabled = true
+            }
+
+            // 내 보관함 버튼을 눌렀을 경우
+            btnFavorite.setOnClickListener {
+                fragmentLike = ImageLikeFragment()
+                setFragment(fragmentLike)
+
+                btnSearchImage.isEnabled = true
+                btnFavorite.isEnabled = false
+                // 내 보관함에 있을 시 검색버튼 비활성화
+                btnSearch.isEnabled = false
+            }
+
+            btnSearch.setOnClickListener {
+                search = binding.etSearchBar.text.toString()
+                getData(search, 80)
+                saveHistory(search)
+            }
         }
         loadHistory()
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
@@ -47,7 +76,7 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.commit {
             replace(R.id.frameLayout, f)
             setReorderingAllowed(true)
-            addToBackStack("")
+            addToBackStack(null)
         }
     }
 
@@ -88,9 +117,10 @@ class MainActivity : AppCompatActivity() {
         val response = DataRequestURLs.kakaoNetwork.getItem(KakaoAPIKey.REST_API_KEY, query, size)
         Log.d("Parsing Test ::", response.toString())
         items = response.documents
-        fragment.adapter.getItems(items)
+        fragmentSearch.imageAdapter.getItems(items)
     }
 
+    // History 저장
     private fun saveHistory(s:String) {
         getSharedPreferences(PREF_KEY, MODE_PRIVATE)
             .edit()
@@ -98,7 +128,8 @@ class MainActivity : AppCompatActivity() {
             .apply()
     }
 
-    fun loadHistory() {
+    // History 불러오기
+    private fun loadHistory() {
         val getSharedPref = getSharedPreferences(PREF_KEY, MODE_PRIVATE)
         binding.etSearchBar.setText(getSharedPref.getString(RECENT_KEY, PREF_DEFAULT_VALUE))
     }

@@ -1,22 +1,25 @@
 package com.example.ssssearchdataapp.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.ssssearchdataapp.GlobalVars.favItems
+import com.example.ssssearchdataapp.GlobalVars.items
+import com.example.ssssearchdataapp.GlobalVars.mainActivity
 import com.example.ssssearchdataapp.MainActivity
 import com.example.ssssearchdataapp.databinding.FragmentImageSearchBinding
-import com.example.ssssearchdataapp.externaldatas.Document
 
 
 class ImageSearchFragment : Fragment() {
     private var _binding : FragmentImageSearchBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var adapter:ImageAdapter
+    lateinit var imageAdapter:ImageAdapter
+
+    private lateinit var ila:ImageLikeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,16 +35,30 @@ class ImageSearchFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Log.d("ISF","onViewCreated : $items")
-        adapter = ImageAdapter(items)
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = GridLayoutManager(mainActivity, 2, GridLayoutManager.VERTICAL, false)
+        imageAdapter = ImageAdapter(items)
+        ila = ImageLikeAdapter(favItems)
+        binding.recyclerViewSearch.apply {
+            this.adapter = imageAdapter
+            this.layoutManager = GridLayoutManager(mainActivity, 2, GridLayoutManager.VERTICAL, false)
+        }
+        // Item 클릭 시 이벤트 처리
+        imageAdapter.imageClick = object : ImageClick {
+            override fun isLike(v: View, pos: Int) {
+                when(items[pos]) {
+                    !in favItems -> {   // 선택한 아이템이 보관함에 없을 경우
+                        favItems.add(items[pos])
+                        ila.getFav(favItems)
+                    }
+                    else -> {
+                        favItems.remove(items[pos])
+                        ila.getFav(favItems)
+                    }
+                }
+                imageAdapter.notifyItemChanged(pos)
+            }
+        }
     }
 
-    companion object {
-        var items = mutableListOf<Document>()
-        var mainActivity: MainActivity? = null
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()
