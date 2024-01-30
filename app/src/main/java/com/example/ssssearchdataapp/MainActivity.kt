@@ -66,6 +66,7 @@ class MainActivity : AppCompatActivity() {
             btnSearch.setOnClickListener {
                 search = binding.etSearchBar.text.toString()
                 getData(search, 80)
+                fragmentSearch.recyclerView.scrollToPosition(0) // 검색결과를 맨 위에서부터 보여주기
                 saveHistory(search)
             }
         }

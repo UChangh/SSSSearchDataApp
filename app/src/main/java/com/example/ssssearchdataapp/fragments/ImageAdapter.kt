@@ -9,10 +9,10 @@ import com.example.ssssearchdataapp.R
 import com.example.ssssearchdataapp.databinding.FragmentItemRecyclerBinding
 import com.example.ssssearchdataapp.externaldatas.Document
 import com.example.ssssearchdataapp.interfaces.ImageClick
+import com.example.ssssearchdataapp.objects.GlobalVars.dtf
 import com.example.ssssearchdataapp.objects.GlobalVars.favItems
 import com.example.ssssearchdataapp.objects.GlobalVars.mainActivity
 import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
 
 class ImageAdapter(private var dataset: List<Document>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     fun getItems(items : List<Document>){
@@ -58,7 +58,6 @@ class ImageAdapter(private var dataset: List<Document>): RecyclerView.Adapter<Re
             }
         }
     }
-    val dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 
     override fun getItemCount() = dataset.size
 }

@@ -38,14 +38,13 @@ class ImageLikeFragment : Fragment() {
             this.adapter = likeAdapter
             this.layoutManager = GridLayoutManager(mainActivity, 2, GridLayoutManager.VERTICAL, false)
         }
-        likeAdapter.favClick = object : FavoriteClick {
+        likeAdapter.favClick = object : FavoriteClick {     // 보관함에서 아이템 클릭하는 경우
             override fun dislike(v: View, pos: Int) {
-                favItems.remove(favItems[pos])
-                likeAdapter.getFav(favItems)
+                favItems.remove(favItems[pos])              // pos위치에서 아이템 삭제
+                likeAdapter.getFav(favItems)                // 삭제 후 adapter에 데이터 전달 & 업데이트
             }
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

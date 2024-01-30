@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.ssssearchdataapp.objects.GlobalVars.mainActivity
 import com.example.ssssearchdataapp.R
 import com.example.ssssearchdataapp.databinding.FragmentItemRecyclerBinding
 import com.example.ssssearchdataapp.externaldatas.Document
 import com.example.ssssearchdataapp.interfaces.FavoriteClick
+import com.example.ssssearchdataapp.objects.GlobalVars.dtf
+import com.example.ssssearchdataapp.objects.GlobalVars.mainActivity
 import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
 
 class ImageLikeAdapter(private var dataset: List<Document>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     fun getFav(items : List<Document>){ // dataset에 items를 덮어씌워 호출 시 마다 dataset을 갱신함
@@ -45,7 +45,6 @@ class ImageLikeAdapter(private var dataset: List<Document>): RecyclerView.Adapte
         holder.blog.text = dataset[position].display_sitename
         holder.time.text = dtf.format(OffsetDateTime.parse(dataset[position].datetime))
     }
-    val dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 
     override fun getItemCount() = dataset.size
 }

@@ -22,6 +22,8 @@ class ImageSearchFragment : Fragment() {
 
     private lateinit var ila:ImageLikeAdapter
 
+    val recyclerView by lazy { binding.recyclerViewSearch }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainActivity = context as MainActivity
