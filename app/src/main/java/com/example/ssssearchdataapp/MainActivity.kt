@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
         fragmentSearch = ImageSearchFragment()
         fragmentLike = ImageLikeFragment()
-        setFragment(fragmentSearch)
+        setFragment(fragmentSearch)         // Main 시작 시 이미지 검색 프래그먼트를 띄움
         binding.btnSearchImage.isEnabled = false
 
         binding.apply {
