@@ -6,11 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.ssssearchdataapp.GlobalVars.favItems
-import com.example.ssssearchdataapp.GlobalVars.items
-import com.example.ssssearchdataapp.GlobalVars.mainActivity
 import com.example.ssssearchdataapp.MainActivity
 import com.example.ssssearchdataapp.databinding.FragmentImageSearchBinding
+import com.example.ssssearchdataapp.interfaces.ImageClick
+import com.example.ssssearchdataapp.objects.GlobalVars.favItems
+import com.example.ssssearchdataapp.objects.GlobalVars.items
+import com.example.ssssearchdataapp.objects.GlobalVars.mainActivity
 
 
 class ImageSearchFragment : Fragment() {

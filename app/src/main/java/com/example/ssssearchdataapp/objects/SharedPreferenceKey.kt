@@ -1,4 +1,4 @@
-package com.example.ssssearchdataapp
+package com.example.ssssearchdataapp.objects
 
 object SharedPreferenceKey {
     const val PREF_KEY = "SharedPref"

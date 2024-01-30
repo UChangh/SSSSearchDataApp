@@ -6,10 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.ssssearchdataapp.GlobalVars.favItems
-import com.example.ssssearchdataapp.GlobalVars.mainActivity
 import com.example.ssssearchdataapp.MainActivity
 import com.example.ssssearchdataapp.databinding.FragmentImageLikeBinding
+import com.example.ssssearchdataapp.interfaces.FavoriteClick
+import com.example.ssssearchdataapp.objects.GlobalVars.favItems
+import com.example.ssssearchdataapp.objects.GlobalVars.mainActivity
 
 class ImageLikeFragment : Fragment() {
     private var _binding : FragmentImageLikeBinding? = null

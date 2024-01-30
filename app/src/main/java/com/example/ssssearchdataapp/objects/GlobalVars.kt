@@ -1,5 +1,6 @@
-package com.example.ssssearchdataapp
+package com.example.ssssearchdataapp.objects
 
+import com.example.ssssearchdataapp.MainActivity
 import com.example.ssssearchdataapp.externaldatas.Document
 
 object GlobalVars {

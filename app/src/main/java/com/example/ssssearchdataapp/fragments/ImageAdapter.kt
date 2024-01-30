@@ -5,11 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.ssssearchdataapp.GlobalVars.favItems
-import com.example.ssssearchdataapp.GlobalVars.mainActivity
 import com.example.ssssearchdataapp.R
 import com.example.ssssearchdataapp.databinding.FragmentItemRecyclerBinding
 import com.example.ssssearchdataapp.externaldatas.Document
+import com.example.ssssearchdataapp.interfaces.ImageClick
+import com.example.ssssearchdataapp.objects.GlobalVars.favItems
+import com.example.ssssearchdataapp.objects.GlobalVars.mainActivity
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 
@@ -19,7 +20,7 @@ class ImageAdapter(private var dataset: List<Document>): RecyclerView.Adapter<Re
         notifyDataSetChanged()
     }
 
-    var imageClick:ImageClick? = null
+    var imageClick: ImageClick? = null
 
     inner class Holder(binding: FragmentItemRecyclerBinding): RecyclerView.ViewHolder(binding.root) {
         val img = binding.imageView

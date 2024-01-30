@@ -11,14 +11,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
-import com.example.ssssearchdataapp.GlobalVars.items
-import com.example.ssssearchdataapp.SharedPreferenceKey.PREF_DEFAULT_VALUE
-import com.example.ssssearchdataapp.SharedPreferenceKey.PREF_KEY
-import com.example.ssssearchdataapp.SharedPreferenceKey.RECENT_KEY
 import com.example.ssssearchdataapp.databinding.ActivityMainBinding
 import com.example.ssssearchdataapp.externaldatas.DataRequestURLs
 import com.example.ssssearchdataapp.fragments.ImageLikeFragment
 import com.example.ssssearchdataapp.fragments.ImageSearchFragment
+import com.example.ssssearchdataapp.objects.GlobalVars.items
+import com.example.ssssearchdataapp.objects.KakaoAPIKey
+import com.example.ssssearchdataapp.objects.SharedPreferenceKey.PREF_DEFAULT_VALUE
+import com.example.ssssearchdataapp.objects.SharedPreferenceKey.PREF_KEY
+import com.example.ssssearchdataapp.objects.SharedPreferenceKey.RECENT_KEY
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {

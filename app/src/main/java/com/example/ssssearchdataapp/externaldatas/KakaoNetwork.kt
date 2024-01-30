@@ -1,6 +1,6 @@
 package com.example.ssssearchdataapp.externaldatas
 
-import com.example.ssssearchdataapp.KakaoAPIKey.REST_API_KEY
+import com.example.ssssearchdataapp.objects.KakaoAPIKey.REST_API_KEY
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Query

@@ -4,10 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.ssssearchdataapp.GlobalVars.mainActivity
+import com.example.ssssearchdataapp.objects.GlobalVars.mainActivity
 import com.example.ssssearchdataapp.R
 import com.example.ssssearchdataapp.databinding.FragmentItemRecyclerBinding
 import com.example.ssssearchdataapp.externaldatas.Document
+import com.example.ssssearchdataapp.interfaces.FavoriteClick
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 
@@ -17,7 +18,7 @@ class ImageLikeAdapter(private var dataset: List<Document>): RecyclerView.Adapte
         notifyDataSetChanged()
     }
 
-    var favClick:FavoriteClick? = null
+    var favClick: FavoriteClick? = null
 
     inner class Holder(binding: FragmentItemRecyclerBinding): RecyclerView.ViewHolder(binding.root) {
         val img = binding.imageView

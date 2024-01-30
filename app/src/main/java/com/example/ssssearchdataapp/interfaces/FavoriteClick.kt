@@ -1,4 +1,4 @@
-package com.example.ssssearchdataapp.fragments
+package com.example.ssssearchdataapp.interfaces
 
 import android.view.View
 
