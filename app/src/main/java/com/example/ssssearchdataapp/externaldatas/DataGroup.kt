@@ -10,7 +10,7 @@ data class DataGroup(
 data class Document(
     val collection: String,
     val datetime: String,
-    val display_sitename: String,
+    var display_sitename: String,
     val doc_url: String,
     val height: Int,
     val image_url: String,

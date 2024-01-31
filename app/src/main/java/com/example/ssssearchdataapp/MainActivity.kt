@@ -119,6 +119,7 @@ class MainActivity : AppCompatActivity() {
         val response = DataRequestURLs.kakaoNetwork.getItem(KakaoAPIKey.REST_API_KEY, query, size)
         Log.d("Parsing Test ::", response.toString())
         items = response.documents
+        items.forEach { if(it.display_sitename.isBlank()) it.display_sitename = "사이트명이 없습니다." }
         fragmentSearch.imageAdapter.getItems(items)
     }
 
