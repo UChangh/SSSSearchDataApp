@@ -8,9 +8,10 @@ import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
+import androidx.viewpager2.widget.ViewPager2
+import com.example.ssssearchdataapp.adapters.ImageAdapter
+import com.example.ssssearchdataapp.adapters.ViewPagerAdapter
 import com.example.ssssearchdataapp.databinding.ActivityMainBinding
 import com.example.ssssearchdataapp.externaldatas.DataRequestURLs
 import com.example.ssssearchdataapp.fragments.ImageLikeFragment
@@ -20,13 +21,17 @@ import com.example.ssssearchdataapp.objects.KakaoAPIKey
 import com.example.ssssearchdataapp.objects.SharedPreferenceKey.PREF_DEFAULT_VALUE
 import com.example.ssssearchdataapp.objects.SharedPreferenceKey.PREF_KEY
 import com.example.ssssearchdataapp.objects.SharedPreferenceKey.RECENT_KEY
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
     private lateinit var fragmentSearch:ImageSearchFragment
-    private lateinit var fragmentLike:ImageLikeFragment
+
+    private lateinit var viewPager:ViewPager2
+    private lateinit var tabLayout:TabLayout
 
     private lateinit var search:String
 
@@ -36,37 +41,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(main)
 
         fragmentSearch = ImageSearchFragment()
-        fragmentLike = ImageLikeFragment()
-        setFragment(fragmentSearch)         // Main 시작 시 이미지 검색 프래그먼트를 띄움
-        binding.btnSearchImage.isEnabled = false
+        viewPager = binding.viewPager
+        tabLayout = binding.tabLayout
+
+        viewPagerInit()
 
         binding.apply {
-            // 이미지 검색 버튼을 눌렀을 경우
-            btnSearchImage.setOnClickListener {
-                fragmentSearch = ImageSearchFragment()
-                setFragment(fragmentSearch)
-
-                btnSearchImage.isEnabled = false
-                btnFavorite.isEnabled = true
-                // 내 보관함에 있을 시 검색버튼 활성화
-                btnSearch.isEnabled = true
-            }
-
-            // 내 보관함 버튼을 눌렀을 경우
-            btnFavorite.setOnClickListener {
-                fragmentLike = ImageLikeFragment()
-                setFragment(fragmentLike)
-
-                btnSearchImage.isEnabled = true
-                btnFavorite.isEnabled = false
-                // 내 보관함에 있을 시 검색버튼 비활성화
-                btnSearch.isEnabled = false
-            }
-
             btnSearch.setOnClickListener {
                 search = binding.etSearchBar.text.toString()
                 getData(search, 80)
-                fragmentSearch.recyclerView.scrollToPosition(0) // 검색결과를 맨 위에서부터 보여주기
+//                fragmentSearch.recyclerView.scrollToPosition(0) // 검색결과를 맨 위에서부터 보여주기
                 saveHistory(search)
             }
         }
@@ -74,12 +58,27 @@ class MainActivity : AppCompatActivity() {
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
 
-    private fun setFragment(f: Fragment) {
-        supportFragmentManager.commit {
-            replace(R.id.frameLayout, f)
-            setReorderingAllowed(true)
-            addToBackStack(null)
+    // ViewPager & Tablayout
+    private fun viewPagerInit() {
+        val vpa = ViewPagerAdapter(this)
+        vpa.addFrag(ImageSearchFragment())
+        vpa.addFrag(ImageLikeFragment())
+
+        viewPager.apply {
+            adapter = vpa
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {   // ?
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                }
+            })     // ?
         }
+
+        TabLayoutMediator(tabLayout,viewPager) { tab, position ->
+            when(position) {
+                0 -> tab.text = "이미지 검색"
+                1 -> tab.text = "내 보관함"
+            }
+        }.attach()
     }
 
     // EditText 터치 시 포커스 획득 / 외부화면 터치 시 포커스 해제
@@ -119,6 +118,7 @@ class MainActivity : AppCompatActivity() {
         val response = DataRequestURLs.kakaoNetwork.getItem(KakaoAPIKey.REST_API_KEY, query, size)
         Log.d("Parsing Test ::", response.toString())
         items = response.documents
+        fragmentSearch.imageAdapter = ImageAdapter(items)
         fragmentSearch.imageAdapter.getItems(items)
     }
 

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ssssearchdataapp.MainActivity
+import com.example.ssssearchdataapp.adapters.ImageLikeAdapter
 import com.example.ssssearchdataapp.databinding.FragmentImageLikeBinding
 import com.example.ssssearchdataapp.interfaces.FavoriteClick
 import com.example.ssssearchdataapp.objects.GlobalVars.favItems
@@ -16,7 +17,7 @@ class ImageLikeFragment : Fragment() {
     private var _binding : FragmentImageLikeBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var likeAdapter:ImageLikeAdapter
+    lateinit var likeAdapter: ImageLikeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
