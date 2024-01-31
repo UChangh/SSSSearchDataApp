@@ -40,11 +40,11 @@ class MainActivity : AppCompatActivity() {
         val main = binding.root
         setContentView(main)
 
+        viewPagerInit()
+
         fragmentSearch = ImageSearchFragment()
         viewPager = binding.viewPager
         tabLayout = binding.tabLayout
-
-        viewPagerInit()
 
         binding.apply {
             btnSearch.setOnClickListener {
@@ -64,16 +64,17 @@ class MainActivity : AppCompatActivity() {
         vpa.addFrag(ImageSearchFragment())
         vpa.addFrag(ImageLikeFragment())
 
-        viewPager.apply {
+        binding.viewPager.apply {
             adapter = vpa
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {   // ?
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-                }
+//                override fun onPageSelected(position: Int) {
+//                    super.onPageSelected(position)
+//                }
             })     // ?
         }
 
-        TabLayoutMediator(tabLayout,viewPager) { tab, position ->
+        TabLayoutMediator(binding.tabLayout,binding.viewPager) { tab, position ->
+            Log.e("YMC", "ViewPager position: $position")
             when(position) {
                 0 -> tab.text = "이미지 검색"
                 1 -> tab.text = "내 보관함"

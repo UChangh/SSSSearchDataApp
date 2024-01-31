@@ -19,13 +19,11 @@ import com.example.ssssearchdataapp.objects.GlobalVars.mainActivity
 
 class ImageSearchFragment : Fragment() {
     private lateinit var binding : FragmentImageSearchBinding
-//    private val binding get() = _binding!!
 
     lateinit var imageAdapter: ImageAdapter
 
     private lateinit var ila: ImageLikeAdapter
 
-//    val recyclerView by lazy { binding.recyclerViewSearch }
     private lateinit var recyclerView:RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
