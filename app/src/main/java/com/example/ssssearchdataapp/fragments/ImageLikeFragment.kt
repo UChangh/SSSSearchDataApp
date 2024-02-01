@@ -37,6 +37,7 @@ class ImageLikeFragment : Fragment() {
         binding.recyclerViewLike.apply {
             this.adapter = likeAdapter
             this.layoutManager = GridLayoutManager(mainActivity, 2, GridLayoutManager.VERTICAL, false)
+            this.itemAnimator = null
         }
         likeAdapter.favClick = object : FavoriteClick {     // 보관함에서 아이템 클릭하는 경우
             override fun dislike(v: View, pos: Int) {

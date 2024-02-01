@@ -7,6 +7,13 @@ data class DataGroup(
     val meta: Meta
 )
 
+/**
+ * 메소드 내용   // 이게 뭘까??
+ *
+ * @property display_sitename 사이트 제목
+ * @property thumbnail_url 썸네일 주소
+ * @property datetime 날짜(ISO형식)
+ */
 data class Document(
     val collection: String,
     val datetime: String,

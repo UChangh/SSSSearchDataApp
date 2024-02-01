@@ -43,6 +43,7 @@ class ImageSearchFragment : Fragment() {
         binding.recyclerViewSearch.apply {
             this.adapter = imageAdapter
             this.layoutManager = GridLayoutManager(mainActivity, 2, GridLayoutManager.VERTICAL, false)
+            this.itemAnimator = null    // 아이템 변경 시 화면의 깜빡임을 방지
         }
         // Item 클릭 시 이벤트 처리
         imageAdapter.imageClick = object : ImageClick {
