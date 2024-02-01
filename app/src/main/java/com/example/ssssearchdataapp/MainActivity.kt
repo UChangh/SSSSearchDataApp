@@ -107,7 +107,7 @@ class MainActivity : AppCompatActivity() {
         val response = DataRequestURLs.kakaoNetwork.getItem(KakaoAPIKey.REST_API_KEY, query, size)
         Log.d("Parsing Test ::", response.toString())
         items = response.documents
-//        fragmentSearch.imageAdapter.getItems(items)
+        fragmentSearch.imageAdapter.getItems(items)
     }
 
     // History 저장

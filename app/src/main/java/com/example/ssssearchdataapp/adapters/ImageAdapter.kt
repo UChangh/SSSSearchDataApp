@@ -64,6 +64,9 @@ import java.time.OffsetDateTime
 //}
 
 class ImageAdapter: ListAdapter<Document, ImageAdapter.Holder>(diff) {
+    fun getItems(items : List<Document>){
+
+    }
 
     inner class Holder(val v: View): RecyclerView.ViewHolder(v){
         fun bind(docs: Document){
