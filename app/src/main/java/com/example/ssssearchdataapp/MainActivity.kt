@@ -15,6 +15,7 @@ import com.example.ssssearchdataapp.adapters.ViewPagerAdapter
 import com.example.ssssearchdataapp.databinding.ActivityMainBinding
 import com.example.ssssearchdataapp.externaldatas.DataRequestURLs
 import com.example.ssssearchdataapp.fragments.ImageSearchFragment
+import com.example.ssssearchdataapp.objects.GlobalVars.emptyText
 import com.example.ssssearchdataapp.objects.GlobalVars.items
 import com.example.ssssearchdataapp.objects.KakaoAPIKey
 import com.example.ssssearchdataapp.objects.SharedPreferenceKey.PREF_DEFAULT_VALUE
@@ -45,8 +46,13 @@ class MainActivity : AppCompatActivity() {
         binding.apply {
             btnSearch.setOnClickListener {
                 search = binding.etSearchBar.text.toString()
-                getData(search, 80)
-                saveHistory(search)
+                if(search.isBlank() || search == emptyText) {
+                    binding.etSearchBar.setText(emptyText)
+                }
+                else {
+                    getData(search, 80)
+                    saveHistory(search)
+                }
             }
         }
         loadHistory()

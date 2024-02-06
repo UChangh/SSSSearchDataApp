@@ -1,7 +1,7 @@
-package com.example.ssssearchdataapp.externaldatas
+package com.example.ssssearchdataapp.externaldatas.models.images
 
 
-data class DataGroup(
+data class ImageDataGroup(
     // List -> MutableList
     val documents: MutableList<Document>,
     val meta: Meta

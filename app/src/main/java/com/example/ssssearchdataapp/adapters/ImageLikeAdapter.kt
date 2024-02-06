@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.ssssearchdataapp.R
 import com.example.ssssearchdataapp.databinding.FragmentItemRecyclerBinding
-import com.example.ssssearchdataapp.externaldatas.Document
+import com.example.ssssearchdataapp.externaldatas.models.images.Document
 import com.example.ssssearchdataapp.interfaces.FavoriteClick
 import com.example.ssssearchdataapp.objects.GlobalVars.dtf
 import com.example.ssssearchdataapp.objects.GlobalVars.mainActivity

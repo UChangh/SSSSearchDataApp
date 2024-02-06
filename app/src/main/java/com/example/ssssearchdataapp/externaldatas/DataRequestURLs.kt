@@ -1,6 +1,7 @@
 package com.example.ssssearchdataapp.externaldatas
 
 import com.example.ssssearchdataapp.BuildConfig
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -10,16 +11,18 @@ import java.util.concurrent.TimeUnit
 object DataRequestURLs {
     private const val SEARCH_BASE_URL = "https://dapi.kakao.com/"
 
-    private val kakaoRetrofit by lazy {
+    private val kakaoRetrofit by lazy {     // Retrofit 인스턴스를 초기화하고 반환한다.
+        val gson = GsonBuilder().setLenient().create()  // setLenient()는 JSON 파싱이 더 유연하게 처리되도록 함
         Retrofit.Builder()
-            .baseUrl(SEARCH_BASE_URL).addConverterFactory(
-                GsonConverterFactory.create()
+            .baseUrl(SEARCH_BASE_URL)
+            .addConverterFactory(
+                GsonConverterFactory.create(gson)   // 컨버터 추가
             ).client(
                 createOkHttpClient()
             ).build()
     }
 
-    val kakaoNetwork: KakaoNetwork by lazy {
+    val kakaoNetwork: KakaoNetwork by lazy {    // API 서비스 객체 반환
         kakaoRetrofit.create(KakaoNetwork::class.java)
     }
 
